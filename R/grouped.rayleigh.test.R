@@ -1,21 +1,14 @@
-# Hello, world!
-#
-# This is an example function named 'hello'
-# which prints 'Hello, world!'.
-#
-# You can learn more about package authoring with RStudio at:
-#
-#   http://r-pkgs.had.co.nz/
-#
-# Some useful keyboard shortcuts for package authoring:
-#
-#   Install Package:           'Ctrl + Shift + B'
-#   Check Package:             'Ctrl + Shift + E'
-#   Test Package:              'Ctrl + Shift + T'
+###########################################################
+#                                                         #
+#                                                         #
+# RAYLEIGH'S TEST OF CIRCULAR UNIFORMITY FOR GROUPED DATA #
+#                                                         #
+# Author: Igor Yegin                                      #
+#                                                         #
+# Last update: 20/02/2023                                 #
+#                                                         #
+###########################################################
 
-hello <- function() {
-  print("Hello, world!")
-}
 
 grouped.rayleigh.test <- function(x, p.value = c("auto", "asymptotic", "montecarlo"),
                                   template = c("none", "3x3"), neutral = 0) {
