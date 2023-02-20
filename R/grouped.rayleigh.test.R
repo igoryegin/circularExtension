@@ -17,7 +17,7 @@ grouped.rayleigh.test <- function(x.out, x.zero = NULL, p.value = c("auto", "asy
   INPUT <- deparse(substitute(x.out))
   p.value <- match.arg(p.value)
   template <- match.arg(template)
-  template <- ifelse(template == "3x3" & length(x.out) != 8 & length(x.zero) != 1, "none", template)
+  template <- ifelse(template == "3x3" & !(length(x.out) == 8 & length(x.zero) == 1), "none", template)
   if(template == "3x3") {
     m <- sum(length(x.out), length(x.zero))
     n <- sum(x.out, x.zero)
@@ -70,6 +70,7 @@ grouped.rayleigh.test <- function(x.out, x.zero = NULL, p.value = c("auto", "asy
   }
   names(STATISTIC) <- "X2"
   names(PARAMETER) <- "df"
-  structure(list(method = METHOD, data.name = INPUT, statistic = STATISTIC,
+  structure(list(method = ifelse(template == "3x3", paste("3x3", METHOD), METHOD),
+                 data.name = INPUT, statistic = STATISTIC,
                  parameter = PARAMETER, p.value = PVAL), class = "htest")
 }
