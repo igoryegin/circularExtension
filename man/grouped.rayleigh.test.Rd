@@ -1,6 +1,7 @@
 \name{grouped.rayleigh.test}
-\alias{grtest}
+\alias{grouped.rayleigh.test}
 \title{Grouped Rayleigh Test}
+\usage{grouped.rayleigh.test()}
 \description{
 Rayleigh Test of Circular Uniformity for Grouped Data
 }
