@@ -10,35 +10,35 @@
 ###########################################################
 
 
-grouped.rayleigh.test <- function(x.out, x.zero = NULL, p.value = c("auto", "asymptotic", "simulated"),
+grouped.rayleigh.test <- function(x.outer, x.zero = NULL, p.value = c("auto", "asymptotic", "simulated"),
                                   template = c("none", "3x3")) {
-  if(!is.double(x.out) & !is.integer(x.out))
+  if(!is.double(x.outer) & !is.integer(x.outer))
     stop("non-numeric vector")
-  INPUT <- deparse(substitute(x.out))
+  INPUT <- deparse(substitute(x.outer))
   p.value <- match.arg(p.value)
   template <- match.arg(template)
-  template <- ifelse(template == "3x3" & !(length(x.out) == 8 & length(x.zero) == 1), "none", template)
+  template <- ifelse(template == "3x3" & !(length(x.outer) == 8 & length(x.zero) == 1), "none", template)
   if(template == "3x3") {
-    m <- sum(length(x.out), length(x.zero))
-    n <- sum(x.out, x.zero)
-    x <- c(x.out, x.zero)
-    w <- rep(c(1, 0), c(length(x.out), length(x.zero)))
-    cosj <- c(cos(2 * pi * seq_len(length(x.out)) / length(x.out)),
+    m <- sum(length(x.outer), length(x.zero))
+    n <- sum(x.outer, x.zero)
+    x <- c(x.outer, x.zero)
+    w <- rep(c(1, 0), c(length(x.outer), length(x.zero)))
+    cosj <- c(cos(2 * pi * seq_len(length(x.outer)) / length(x.outer)),
               cos(2 * pi * seq_len(length(x.zero)) / length(x.zero)))
-    sinj <- c(sin(2 * pi * seq_len(length(x.out)) / length(x.out)),
+    sinj <- c(sin(2 * pi * seq_len(length(x.outer)) / length(x.outer)),
               sin(2 * pi * seq_len(length(x.zero)) / length(x.zero)))
     coefmat <- w * cosj %*% t(w * cosj) + w * sinj %*% t(w * sinj)
   }
   else {
-    m <- length(x.out)
-    n <- sum(x.out)
-    x <- x.out
-    cd <- outer(1:length(x.out), 1:length(x.out), `-`)
-    coefmat <- cos(2 * pi * cd / length(x.out))
+    m <- length(x.outer)
+    n <- sum(x.outer)
+    x <- x.outer
+    cd <- outer(1:length(x.outer), 1:length(x.outer), `-`)
+    coefmat <- cos(2 * pi * cd / length(x.outer))
   }
   statistic <- function(x) {
     as.numeric(
-      round(2/length(x.out) * t((x - n/m) / sqrt(n/m)) %*% coefmat %*% (x - n/m) / sqrt(n/m), 5)
+      round(2/length(x.outer) * t((x - n/m) / sqrt(n/m)) %*% coefmat %*% (x - n/m) / sqrt(n/m), 5)
     )
   }
   method.asymp <- function() {
