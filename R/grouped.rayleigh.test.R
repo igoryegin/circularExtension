@@ -14,7 +14,7 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, p.value = c("auto", "a
                                   template = c("none", "3x3")) {
   if(!is.numeric(x.outer))
     stop("Please provide a vector of whole numbers")
-  if(any(x.outer - trunc(x.outer)) > 0)
+  if(any(x.outer - trunc(x.outer) > 0))
     warning("Decimal numbers are provided. Only the integer parts of these numbers will be considered")
   x.outer <- trunc(x.outer)
   INPUT <- deparse(substitute(x.outer))
@@ -44,6 +44,7 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, p.value = c("auto", "a
       round(2/length(x.outer) * t((x - n/m) / sqrt(n/m)) %*% coefmat %*% (x - n/m) / sqrt(n/m), 5)
     )
   }
+  STATISTIC <- statistic(x)
   method.asymp <- function() {
     assign("PARAMETER", 2, envir = parent.frame())
     assign("PVAL", 1 - pchisq(STATISTIC, 2), envir = parent.frame())
@@ -54,9 +55,8 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, p.value = c("auto", "a
     mc.vectors <- rmultinom(9999, n, rep(1/m, m))
     mc.statistics <- apply(mc.vectors, 2, statistic)
     assign("PVAL", 1 / (length(mc.statistics) + 1) * (length(which(mc.statistics >= STATISTIC)) + 1), envir = parent.frame())
-    assign("METHOD", "Rayleigh Test for Grouped Observations (Monte Carlo p-values)", envir = parent.frame())
+    assign("METHOD", "Rayleigh Test for Grouped Observations (simulated p-values)", envir = parent.frame())
   }
-  STATISTIC <- statistic(x)
   if(p.value == "asymptotic") {
     method.asymp()
   }
