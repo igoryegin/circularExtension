@@ -1,6 +1,6 @@
 Package: circularExtension
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Extra functions for circular package
 Version: 0.2.0
 Author: Igor Yegin
 Maintainer: The package maintainer <yourself@somewhere.net>
