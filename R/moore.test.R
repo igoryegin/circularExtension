@@ -10,6 +10,7 @@
 ###########################################################
 
 moore.test <- function(x, w, p.value = c("asymptotic", "simulated")) {
+  require(circular)
   if(length(x) != length(w))
     stop("Vector of angles (x) and vector of weights/lengths (w) must have equal number of elements")
   if(!is.numeric(x) | !is.numeric(w))
@@ -45,5 +46,3 @@ moore.test <- function(x, w, p.value = c("asymptotic", "simulated")) {
   structure(list(method = METHOD, data.name = INPUT,
                  statistic = STATISTIC, p.value = PVAL), class = "htest")
 }
-
-moore.test(rvonmises(84, pi/6, 0.6), 1:84, p.value = "sim")
