@@ -19,7 +19,7 @@ Peforms the Rayleigh's test of circular uniformity for grouped data.
   \item{data.name}{a character string giving the name(s) of the data.}}
 \examples{
 library(circular)
-x <- rvonmises(100, mu = 0, kappa = 1)
+x <- rvonmises(100, mu = 0, kappa = 0.5)
 x <- table(findInterval(x, seq(0, 2*pi, pi/6)))
 grouped.rayleigh.test(x, p.value = "asymptotic")
 }

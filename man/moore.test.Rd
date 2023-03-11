@@ -14,4 +14,12 @@ Performs the Moore's test of circular uniformity for vector data or weighted ang
   \item{p.value}{the p-value of the test.}
   \item{data.name}{a character string giving the name(s) of the data.}}
 \examples{
+library(circular)
+x <- rcircularuniform(100)
+w <- runif(100, 0.3, 1)
+moore.test(x = x, w = w)
+
+x <- sort(rcircularuniform(100))
+w <- sort(runif(100, 0.3, 1))
+moore.test(x = x, w = w)
 }
