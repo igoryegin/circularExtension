@@ -10,13 +10,16 @@
 ###########################################################
 
 
-grouped.rayleigh.test <- function(x.outer, x.zero = NULL, p.value = c("auto", "asymptotic", "simulated"),
+grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value = c("auto", "asymptotic", "simulated"),
                                   template = c("none", "3x3")) {
   if(!is.numeric(x.outer))
     stop("Please provide a vector of whole numbers")
   if(any(x.outer - trunc(x.outer) > 0))
     warning("Decimal numbers are provided. Only the integer parts of these numbers will be considered")
   x.outer <- trunc(x.outer)
+  if(sym.axes - trunc(sym.axes) > 0)
+    warning(sprintf("The number of symmetry axis is not an integer. Only the integer part (%d) will be considered", trunc(sym.axes)))
+  sym.axes <- trunc(sym.axes)
   INPUT <- deparse(substitute(x.outer))
   p.value <- match.arg(p.value)
   template <- match.arg(template)
@@ -26,10 +29,10 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, p.value = c("auto", "a
     n <- sum(x.outer, x.zero)
     x <- c(x.outer, x.zero)
     w <- rep(c(1, 0), c(length(x.outer), length(x.zero)))
-    cc <- c(cos(2 * pi * seq_len(length(x.outer)) / length(x.outer)),
-              cos(2 * pi * seq_len(length(x.zero)) / length(x.zero)))
-    ss <- c(sin(2 * pi * seq_len(length(x.outer)) / length(x.outer)),
-              sin(2 * pi * seq_len(length(x.zero)) / length(x.zero)))
+    cc <- c(cos(2 * sym.axes * pi * seq_len(length(x.outer)) / length(x.outer)),
+              cos(2 * sym.axes * pi * seq_len(length(x.zero)) / length(x.zero)))
+    ss <- c(sin(2 * sym.axes * pi * seq_len(length(x.outer)) / length(x.outer)),
+              sin(2 * sym.axes * pi * seq_len(length(x.zero)) / length(x.zero)))
     coefmat <- w * cc %*% t(w * cc) + w * ss %*% t(w * ss)
   }
   else {
@@ -37,7 +40,7 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, p.value = c("auto", "a
     n <- sum(x.outer)
     x <- x.outer
     cd <- outer(1:length(x.outer), 1:length(x.outer), `-`)
-    coefmat <- cos(2 * pi * cd / length(x.outer))
+    coefmat <- cos(2 * sym.axes * pi * cd / length(x.outer))
   }
   statistic <- function(x) {
     as.numeric(
