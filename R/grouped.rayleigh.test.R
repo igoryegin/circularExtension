@@ -5,7 +5,7 @@
 #                                                         #
 # Author: Igor Yegin                                      #
 #                                                         #
-# Last update: 27/02/2023                                 #
+# Last update: 16/03/2023                                 #
 #                                                         #
 ###########################################################
 
@@ -47,18 +47,18 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value 
       round(2/length(x.outer) * t((x - n/m) / sqrt(n/m)) %*% coefmat %*% (x - n/m) / sqrt(n/m), 5)
     )
   }
-  STATISTIC <- statistic(x)
+  STATISTIC <- statistic(x = x)
   method.asymp <- function() {
     assign("PARAMETER", 2, envir = parent.frame())
     assign("PVAL", 1 - pchisq(STATISTIC, 2), envir = parent.frame())
-    assign("METHOD", "Rayleigh Test for Grouped Observations", envir = parent.frame())
+    assign("METHOD", "Rayleigh test of circular uniformity for grouped observations", envir = parent.frame())
   }
   method.mc <- function() {
     assign("PARAMETER", NA, envir = parent.frame())
     mc.vectors <- rmultinom(9999, n, rep(1/m, m))
     mc.statistics <- apply(mc.vectors, 2, statistic)
     assign("PVAL", 1 / (length(mc.statistics) + 1) * (length(which(mc.statistics >= STATISTIC)) + 1), envir = parent.frame())
-    assign("METHOD", "Rayleigh Test for Grouped Observations (simulated p-values)", envir = parent.frame())
+    assign("METHOD", "Rayleigh test of circular uniformity for grouped observations (simulated p-values)", envir = parent.frame())
   }
   if(p.value == "asymptotic") {
     method.asymp()

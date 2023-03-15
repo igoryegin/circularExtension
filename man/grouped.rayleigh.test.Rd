@@ -2,7 +2,7 @@
 \alias{grouped.rayleigh.test}
 \title{Grouped Rayleigh Test}
 \description{
-Peforms the Rayleigh's test of circular uniformity for grouped data.
+Performs the Rayleigh's test of circular uniformity for grouped data.
 }
 \arguments{
   \item{x.outer}{number of observations per group}

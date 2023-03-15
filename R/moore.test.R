@@ -5,7 +5,7 @@
 # FOR VECTOR DATA OR WEIGHTED CIRCULAR OBSERVATIONS       #
 # Author: Igor Yegin                                      #
 #                                                         #
-# Last update: 27/02/2023                                 #
+# Last update: 16/03/2023                                 #
 #                                                         #
 ###########################################################
 
@@ -26,14 +26,14 @@ moore.test <- function(x, w, p.value = c("asymptotic", "simulated")) {
   }
   STATISTIC <- statistic(x = x, w = w)
   method.asymp <- function() {
-    assign("METHOD", "Moore's Test of Uniformity for Vector Data", envir = parent.frame())
+    assign("METHOD", "Moore's test of circular uniformity for vector data", envir = parent.frame())
     assign("PVAL", exp(-3 * STATISTIC ^ 2), envir = parent.frame())
   }
   method.sim <- function() {
     x.sim <- matrix(rcircularuniform(n * 9999), ncol = 9999)
     w.sim <- replicate(9999, sample(1:n, n))
     sim.statistics <- sapply(seq_len(9999), function(i) statistic(x.sim[, i], w.sim[, i]))
-    assign("METHOD", "Moore's Test of Uniformity for Vector Data (simulated p-values)", envir = parent.frame())
+    assign("METHOD", "Moore's test of circular uniformity for vector Data (simulated p-values)", envir = parent.frame())
     assign("PVAL", 1 / (length(sim.statistics) + 1) * (length(which(sim.statistics >= STATISTIC)) + 1), envir = parent.frame())
   }
   if(p.value == "asymptotic") {
