@@ -9,7 +9,7 @@
 #                                                         #
 ###########################################################
 
-moore.test <- function(x, w, p.value = c("asymptotic", "simulated")) {
+moore.vector.test <- function(x, w, p.value = c("asymptotic", "simulated")) {
   require(circular)
   if(length(x) != length(w))
     stop("Vector of angles (x) and vector of weights/lengths (w) must have equal number of elements")
