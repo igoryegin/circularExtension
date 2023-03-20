@@ -5,7 +5,7 @@
 Performs the Rayleigh's test of circular uniformity for grouped data.
 }
 \arguments{
-  \item{x.outer}{number of observations per group}
+  \item{x}{number of observations per group}
   \item{x.zero}{number of observations in the zero group. Only applicable to 3x3 design}
   \item{sym.axes}{number of axes of symmetry}
   \item{p.value}{method of calculating the p-value. If \code{automatic}, it is asymptotic if each group has a count of at least 5. Otherwise, the p-value is simulated with 10,000 repetitions.}

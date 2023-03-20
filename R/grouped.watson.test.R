@@ -1,3 +1,14 @@
+###########################################################
+#                                                         #
+#                                                         #
+# WATSON'S TEST OF UNIFORMITY FOR GROUPED CIRCULAR DATA   #
+#                                                         #
+# Author: Igor Yegin                                      #
+#                                                         #
+# Last update: 21/03/2023                                 #
+#                                                         #
+###########################################################
+
 grouped.watson.test <- function(x, p.value = c("asymptotic", "simulated"),
                                 template = c("none", "months")) {
   require(mgcv)
