@@ -19,6 +19,7 @@ Performs the Rayleigh's test of circular uniformity for grouped data.
     performed.}
   \item{data.name}{a character string giving the name(s) of the data.}}
 \examples{
+set.seed(1)
 library(circular)
 x <- rvonmises(100, mu = 0, kappa = 0.5)
 x <- table(findInterval(x, seq(0, 2*pi, pi/6)))

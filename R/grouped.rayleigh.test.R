@@ -53,7 +53,7 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value 
     assign("PVAL", 1 - pchisq(STATISTIC, 2), envir = parent.frame())
     assign("METHOD", "Rayleigh test of circular uniformity for grouped observations", envir = parent.frame())
   }
-  method.mc <- function() {
+  method.sim <- function() {
     assign("PARAMETER", NA, envir = parent.frame())
     mc.vectors <- rmultinom(9999, n, rep(1/m, m))
     mc.statistics <- apply(mc.vectors, 2, statistic)
@@ -64,11 +64,11 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value 
     method.asymp()
   }
   else if(p.value == "simulated") {
-    method.mc()
+    method.sim()
   }
   else {
     if(any(x < 5)) {
-      method.mc()
+      method.sim()
     }
     else {
       method.asymp()
