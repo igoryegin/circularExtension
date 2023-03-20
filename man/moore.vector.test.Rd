@@ -1,5 +1,5 @@
-\name{moore.test}
-\alias{moore.test}
+\name{moore.vector.test}
+\alias{moore.vector.test}
 \title{Moore's Test}
 \description{
 Performs the Moore's test of circular uniformity for vector data or weighted angular data.
@@ -17,9 +17,9 @@ Performs the Moore's test of circular uniformity for vector data or weighted ang
 library(circular)
 x <- rcircularuniform(100)
 w <- runif(100, 0.3, 1)
-moore.test(x = x, w = w)
+moore.vector.test(x = x, w = w)
 
 x <- sort(rcircularuniform(100))
 w <- sort(runif(100, 0.3, 1))
-moore.test(x = x, w = w)
+moore.vector.test(x = x, w = w)
 }
