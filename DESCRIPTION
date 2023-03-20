@@ -1,9 +1,10 @@
 Package: circularExtension
 Type: Package
-Title: Extra functions for "circular"" package
-Version: 0.2.0
+Title: Extra functions for "circular" package
+Version: 0.2.1
 Author: Igor Yegin
-Maintainer: The package maintainer <yourself@somewhere.net>
+Maintainer: Igor Yegin <miellago98@gmail.com>
+Imports: circular, mgcv
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
