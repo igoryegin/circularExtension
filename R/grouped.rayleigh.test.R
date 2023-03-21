@@ -5,7 +5,7 @@
 #                                                         #
 # Author: Igor Yegin                                      #
 #                                                         #
-# Last update: 21/03/2023                                 #
+# Last update: 22/03/2023                                 #
 #                                                         #
 ###########################################################
 
@@ -25,15 +25,14 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value 
   p.value <- match.arg(p.value)
   template <- match.arg(template)
   template <- ifelse(template == "3x3" & !(length(x.outer) == 8 & length(x.zero) == 1), "none", template)
-  if(template == "3x3") {
-    x <- c(x.outer, x.zero)
-    m <- length(x)
-    n <- sum(x)
-    w <- rep(c(1, 0), c(length(x.outer), length(x.zero)))
-    cc <- c(cos(2 * sym.axes * pi * seq_len(length(x.outer)) / length(x.outer)),
-              cos(2 * sym.axes * pi * seq_len(length(x.zero)) / length(x.zero)))
-    ss <- c(sin(2 * sym.axes * pi * seq_len(length(x.outer)) / length(x.outer)),
-              sin(2 * sym.axes * pi * seq_len(length(x.zero)) / length(x.zero)))
+  if(inherits(x, "3x3")) {
+    m <- length(unlist(x))
+    n <- sum(unlist(x))
+    w <- rep(c(1, 0), c(length(x$outer), length(x$zero)))
+    cc <- c(cos(2 * sym.axes * pi * seq_len(length(x$outer)) / length(x$outer)),
+              cos(2 * sym.axes * pi * seq_len(length(x$zero)) / length(x$zero)))
+    ss <- c(sin(2 * sym.axes * pi * seq_len(length(x$outer)) / length(x$outer)),
+              sin(2 * sym.axes * pi * seq_len(length(x$zero)) / length(x$zero)))
     coefmat <- w * cc %*% t(w * cc) + w * ss %*% t(w * ss)
   }
   else {
@@ -44,9 +43,14 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value 
     coefmat <- cos(2 * sym.axes * pi * cd / length(x))
   }
   statistic <- function(x) {
-    as.numeric(
-      round(2/length(x.outer) * t((x - n/m) / sqrt(n/m)) %*% coefmat %*% (x - n/m) / sqrt(n/m), 5)
-    )
+    if(inherits(x, "3x3"))
+      as.numeric(
+        round(2/length(x$outer) * t((unlist(x) - n/m) / sqrt(n/m)) %*% coefmat %*% (unlist(x) - n/m) / sqrt(n/m), 5)
+      )
+    else
+      as.numeric(
+        round(2/length(x) * t((x - n/m) / sqrt(n/m)) %*% coefmat %*% (x - n/m) / sqrt(n/m), 5)
+      )
   }
   STATISTIC <- statistic(x = x)
   method.asymp <- function() {
@@ -80,5 +84,5 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value 
   names(PARAMETER) <- "df"
   structure(list(method = ifelse(template == "3x3", paste("3x3", METHOD), METHOD),
                  data.name = INPUT, statistic = STATISTIC,
-                 parameter = PARAMETER, p.value = PVAL), class = "htest")
+                 parameter = PARAMETER, p.value = PVAL, n.groups = m, n.obs = n), class = "htest")
 }

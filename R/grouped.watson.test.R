@@ -67,5 +67,6 @@ grouped.watson.test <- function(x, p.value = c("asymptotic", "simulated"),
   }
   names(STATISTIC) <- "U^2"
   structure(list(method = METHOD, data.name = INPUT,
-                 statistic = STATISTIC, p.value = PVAL), class = "htest")
+                 statistic = STATISTIC, p.value = PVAL,
+                 n.group = m, n.obs = n), class = "htest")
 }
