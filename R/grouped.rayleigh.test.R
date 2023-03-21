@@ -14,6 +14,8 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value 
                                   template = c("none", "3x3")) {
   if(!is.numeric(x.outer))
     stop("Please provide a vector of whole numbers")
+  if(!(sym.axes %in% 1:floor(length(x.outer) / 2)))
+    stop(sprintf("The number of symmetry axes should be between 1 and %d", floor(length(x.outer) / 2)))
   if(any(x.outer - trunc(x.outer) > 0))
     warning("Decimal numbers are provided. Only the integer parts of these numbers will be considered")
   x.outer <- trunc(x.outer)
