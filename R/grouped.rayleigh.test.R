@@ -44,7 +44,7 @@ grouped.rayleigh.test <- function(x, x.zero = NULL, sym.axes = 1, p.value = c("a
   }
   statistic <- function(x) {
     as.numeric(
-      round(2/length(x) * t((x - n/m) / sqrt(n/m)) %*% coefmat %*% (x - n/m) / sqrt(n/m), 5)
+      round(2/length(x[-length(x)]) * t((x - n/m) / sqrt(n/m)) %*% coefmat %*% (x - n/m) / sqrt(n/m), 5)
     )
   }
   STATISTIC <- statistic(x = x)
