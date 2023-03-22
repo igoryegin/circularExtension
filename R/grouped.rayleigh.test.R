@@ -81,5 +81,5 @@ grouped.rayleigh.test <- function(x, sym.axes = 1, p.value = c("auto", "asymptot
   names(PARAMETER) <- "df"
   structure(list(method = ifelse(inherits(x, "3x3"), paste("3x3", METHOD), METHOD),
                  data.name = INPUT, statistic = STATISTIC,
-                 parameter = PARAMETER, p.value = PVAL, n.groups = m, n.obs = n), class = "htest")
+                 parameter = PARAMETER, p.value = PVAL, test.data = x), class = "htest")
 }
