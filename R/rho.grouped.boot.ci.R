@@ -1,4 +1,4 @@
-rho.boot.ci <- function(x, nrepl = 10000, ci = 0.95) {
+rho.grouped.boot.ci <- function(x, nrepl = 10000, ci = 0.95) {
   xunl <- unlist(x)
   n <- sum(xunl)
   if(inherits(x, "3x3")) {
