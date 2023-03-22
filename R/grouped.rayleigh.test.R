@@ -11,11 +11,11 @@
 
 
 grouped.rayleigh.test <- function(x, sym.axes = 1, p.value = c("auto", "asymptotic", "simulated")) {
+  xunl <- unlist(x)
   if(!is.numeric(x) & !inherits(x, "3x3"))
     stop("Please provide a vector of whole numbers or a 3x3 object")
-  if(!(sym.axes %in% 1:floor(length(x) / 2)))
-    stop(sprintf("The number of symmetry axes should be between 1 and %d", floor(length(x) / 2)))
-  xunl <- unlist(x)
+  if(!(sym.axes %in% 1:floor(length(xunl) / 2)))
+    stop(sprintf("The number of symmetry axes should be between 1 and %d", floor(length(xunl) / 2)))
   sym.axes <- trunc(sym.axes)
   p.value <- match.arg(p.value)
   if(!inherits(x, "3x3")) {
