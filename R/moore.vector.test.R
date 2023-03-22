@@ -11,6 +11,8 @@
 
 moore.vector.test <- function(x, w, p.value = c("asymptotic", "simulated")) {
   require(circular)
+  if(inherits(x, "3x3"))
+    stop("This function does not support 3x3 objects")
   if(length(x) != length(w))
     stop("Vector of angles (x) and vector of weights/lengths (w) must have equal number of elements")
   if(!is.numeric(x) | !is.numeric(w))

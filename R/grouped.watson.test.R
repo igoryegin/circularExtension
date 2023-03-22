@@ -12,6 +12,8 @@
 grouped.watson.test <- function(x, p.value = c("asymptotic", "simulated"),
                                 template = c("none", "months")) {
   require(mgcv)
+  if(inherits(x, "3x3"))
+    stop("This function does not support 3x3 objects")
   if(!is.numeric(x))
     stop("Please provide a vector of whole numbers")
   if(any(x - trunc(x) > 0))

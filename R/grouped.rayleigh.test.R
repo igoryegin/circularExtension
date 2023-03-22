@@ -10,24 +10,28 @@
 ###########################################################
 
 
-grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value = c("auto", "asymptotic", "simulated"),
-                                  template = c("none", "3x3")) {
-  if(!is.numeric(x.outer))
-    stop("Please provide a vector of whole numbers")
-  if(!(sym.axes %in% 1:floor(length(x.outer) / 2)))
-    stop(sprintf("The number of symmetry axes should be between 1 and %d", floor(length(x.outer) / 2)))
-  if(any(x.outer - trunc(x.outer) > 0))
-    warning("Decimal numbers are provided. Only the integer parts of these numbers will be considered")
-  x.outer <- trunc(x.outer)
-  if(sym.axes - trunc(sym.axes) > 0)
-    warning(sprintf("The number of symmetry axis is not an integer. Only the integer part (%d) will be considered", trunc(sym.axes)))
+grouped.rayleigh.test <- function(x, sym.axes = 1, p.value = c("auto", "asymptotic", "simulated")) {
+  if(!is.numeric(x) & !inherits(x, "3x3"))
+    stop("Please provide a vector of whole numbers or a 3x3 object")
+  if(!(sym.axes %in% 1:floor(length(x) / 2)))
+    stop(sprintf("The number of symmetry axes should be between 1 and %d", floor(length(x) / 2)))
+  xunl <- unlist(x)
   sym.axes <- trunc(sym.axes)
   p.value <- match.arg(p.value)
-  template <- match.arg(template)
-  template <- ifelse(template == "3x3" & !(length(x.outer) == 8 & length(x.zero) == 1), "none", template)
-  if(inherits(x, "3x3")) {
-    m <- length(unlist(x))
-    n <- sum(unlist(x))
+  if(!inherits(x, "3x3")) {
+    if(any(x - trunc(x) > 0))
+      warning("Decimal numbers are provided. Only the integer parts of these numbers will be considered")
+    x <- trunc(x)
+    if(sym.axes - trunc(sym.axes) > 0)
+      warning(sprintf("The number of symmetry axis is not an integer. Only the integer part (%d) will be considered", trunc(sym.axes)))
+    m <- length(x)
+    n <- sum(x)
+    cd <- outer(1:length(x), 1:length(x), `-`)
+    coefmat <- cos(2 * sym.axes * pi * cd / length(x))
+  }
+  else if(inherits(x, "3x3")) {
+    m <- length(xunl)
+    n <- sum(xunl)
     w <- rep(c(1, 0), c(length(x$outer), length(x$zero)))
     cc <- c(cos(2 * sym.axes * pi * seq_len(length(x$outer)) / length(x$outer)),
               cos(2 * sym.axes * pi * seq_len(length(x$zero)) / length(x$zero)))
@@ -35,17 +39,10 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value 
               sin(2 * sym.axes * pi * seq_len(length(x$zero)) / length(x$zero)))
     coefmat <- w * cc %*% t(w * cc) + w * ss %*% t(w * ss)
   }
-  else {
-    x <- x.outer
-    m <- length(x)
-    n <- sum(x)
-    cd <- outer(1:length(x), 1:length(x), `-`)
-    coefmat <- cos(2 * sym.axes * pi * cd / length(x))
-  }
   statistic <- function(x) {
     if(inherits(x, "3x3"))
       as.numeric(
-        round(2/length(x$outer) * t((unlist(x) - n/m) / sqrt(n/m)) %*% coefmat %*% (unlist(x) - n/m) / sqrt(n/m), 5)
+        round(2/length(x$outer) * t((xunl - n/m) / sqrt(n/m)) %*% coefmat %*% (xunl - n/m) / sqrt(n/m), 5)
       )
     else
       as.numeric(
@@ -72,7 +69,7 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value 
     method.sim()
   }
   else {
-    if(any(x < 5)) {
+    if(any(xunl < 5)) {
       method.sim()
     }
     else {
@@ -82,7 +79,7 @@ grouped.rayleigh.test <- function(x.outer, x.zero = NULL, sym.axes = 1, p.value 
   INPUT <- deparse(substitute(x))
   names(STATISTIC) <- "X2"
   names(PARAMETER) <- "df"
-  structure(list(method = ifelse(template == "3x3", paste("3x3", METHOD), METHOD),
+  structure(list(method = ifelse(inherits(x, "3x3"), paste("3x3", METHOD), METHOD),
                  data.name = INPUT, statistic = STATISTIC,
                  parameter = PARAMETER, p.value = PVAL, n.groups = m, n.obs = n), class = "htest")
 }
