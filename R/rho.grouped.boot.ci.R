@@ -12,7 +12,7 @@ rho.grouped.boot.ci <- function(x, nrepl = 10000, ci = 0.95) {
   X2 <- sqrt(X2 / (2 * n))
   INTERVAL <- quantile(X2, c((1 - ci) / 2, 1 - (1 - ci) / 2))
   list(x = X2,
-       interval = quantile(X2, c((1 - ci) / 2, 1 - (1 - ci) / 2)),
+       interval = INTERVAL,
        conf.int = ci)
-  print(round(INTERVAL, 5))
+  cat(paste0(100*ci, "% confidence interval: \n(", round(INTERVAL[1], 5), ", ", round(INTERVAL[2], 5), ")"))
 }
