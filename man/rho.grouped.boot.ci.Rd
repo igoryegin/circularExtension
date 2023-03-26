@@ -22,4 +22,4 @@ rho.grouped.boot.ci(x, nrepl = 10000, ci = 0.95)
   \item{ci}{confidence interval size}
 }
 \references{
-Moore, B. R. (1980). A Modification of the Rayleigh Test for Vector Data. Biometrika, 67(1), 175–180. https://doi.org/10.2307/2335330
+}
