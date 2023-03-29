@@ -14,8 +14,9 @@ as.3x3(x)
 }
 }
 \details{
- The first 8 numbers are assigned to the "outer" element ob an object. The ninth
- number is assigned to the "zero" element.
+ A '3x3' object is essentially an imitation of a three-by-three contingency table, where the outer cells are regarded as grouped data on a circumference. The inner cell, in such a case, is a neutral observation or a "zero element".
+The first 8 numbers are assigned to the "outer" element of an object. The 9th
+number is assigned to the "zero" element of the object.
 }
 \references{
 }
