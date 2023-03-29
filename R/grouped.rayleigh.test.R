@@ -11,7 +11,7 @@
 
 
 grouped.rayleigh.test <- function(x, sym.axes = 1, p.value = c("auto", "asymptotic", "simulated"),
-                                  boot.CI = NULL) {
+                                  p.binom = 0.25, boot.CI = NULL) {
   xunl <- unlist(x)
   if(!is.numeric(x) & !inherits(x, "3x3"))
     stop("Please provide a vector of whole numbers or a 3x3 object")
@@ -90,7 +90,7 @@ grouped.rayleigh.test <- function(x, sym.axes = 1, p.value = c("auto", "asymptot
                              data.name = INPUT.R, statistic = STATISTIC.R, conf.int = CINT.R,
                              parameter = PARAMETER.R, p.value = PVAL.R, test.data = x), class = "htest")
   if(inherits(x, "3x3")) {
-    binom <- binom.test(x.b, sum(c(x.r, x.b)), p = 0.5, alternative = "less")
+    binom <- binom.test(x.b, sum(c(x.r, x.b)), p = p.binom, alternative = "less")
     binom$data.name <- deparse(substitute(x))
   }
   return(list(rayleigh = rayleigh, binom = binom))
