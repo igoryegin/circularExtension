@@ -11,7 +11,7 @@
 
 
 grouped.rayleigh.test <- function(x, sym.axes = 1, p.value = c("auto", "asymptotic", "simulated"),
-                                  p.binom = 0.25, boot.CI = NULL) {
+                                  p.binom = 0.5, boot.CI = NULL) {
   xunl <- unlist(x)
   if(!is.numeric(x) & !inherits(x, "3x3"))
     stop("Please provide a vector of whole numbers or a 3x3 object")
