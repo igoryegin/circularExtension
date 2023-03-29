@@ -5,7 +5,7 @@
 #                                                         #
 # Author: Igor Yegin                                      #
 #                                                         #
-# Last update: 22/03/2023                                 #
+# Last update: 29/03/2023                                 #
 #                                                         #
 ###########################################################
 
@@ -74,7 +74,7 @@ grouped.rayleigh.test <- function(x, sym.axes = 1, p.value = c("auto", "asymptot
     }
   }
   if(!is.null(boot.CI)) {
-    CINT.R <- apply(rmultinom(9999, n, rep(1/m, m)),
+    CINT.R <- apply(rmultinom(9999, n, x.r),
                   2,
                   function(X) sqrt(statistic(X) / (2 * n)))
     CINT.R <- quantile(CINT.R, c((1 - boot.CI) / 2, 1 - (1 - boot.CI) / 2))
