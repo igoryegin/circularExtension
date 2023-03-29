@@ -92,6 +92,9 @@ grouped.rayleigh.test <- function(x, sym.axes = 1, p.value = c("auto", "asymptot
   if(inherits(x, "3x3")) {
     binom <- binom.test(x.b, sum(c(x.r, x.b)), p = p.binom, alternative = "less")
     binom$data.name <- deparse(substitute(x))
+    return(list(rayleigh = rayleigh, binom = binom))
   }
-  return(list(rayleigh = rayleigh, binom = binom))
+  else {
+    return(rayleigh)
+  }
 }
