@@ -29,3 +29,7 @@ x <- rvonmises(100, mu = 0, kappa = 0.5)
 x <- table(findInterval(x, seq(0, 2*pi, pi/6)))
 grouped.rayleigh.test(x, p.value = "asymptotic", boot.CI = 0.9)
 }
+\references{
+Pewsey, A., Neuhaeuser M., & Ruxton, G. D. (2013). Circular Statistics in R. Oxford: OUP Oxford.
+}
+

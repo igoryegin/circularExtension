@@ -17,11 +17,16 @@
   \item{p.value}{the p-value of the test.}
   \item{method}{a character string indicating what type of test was
     performed.}
-  \item{data.name}{a character string giving the name(s) of the data.}}
+  \item{data.name}{a character string giving the name(s) of the data.}
+  }
 \examples{
 set.seed(1)
 library(circular)
 x <- rvonmises(100, mu = 0, kappa = 0.5)
 x <- table(findInterval(x, seq(0, 2*pi, pi/6)))
 grouped.rayleigh.test(x, p.value = "asymptotic")
+}
+\references{
+Moore, B. R. (1980). A Modification of the Rayleigh Test for Vector Data. Biometrika, 67(1), 175–180.
+Pewsey, A., Neuhaeuser M., & Ruxton, G. D. (2013). Circular Statistics in R. Oxford: OUP Oxford.
 }
