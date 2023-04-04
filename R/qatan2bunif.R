@@ -1,5 +1,5 @@
 qatan2bunif <- Vectorize(
   function(q) {
-    integrate(datan2bunif, -pi, q)$value
+    ifelse(q >= pi, 1, integrate(datan2bunif, -pi, q)$value)
   }
 )
