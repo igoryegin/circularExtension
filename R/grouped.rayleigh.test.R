@@ -74,9 +74,12 @@ grouped.rayleigh.test <- function(x, sym.axes = 1, p.value = c("auto", "asymptot
     }
   }
   if(!is.null(boot.CI)) {
-    CINT.R <- apply(rmultinom(9999, n, x.r),
+    CINT.R <- apply(rmultinom(10000, n, x.r),
                   2,
-                  function(X) sqrt(statistic(X) / (2 * n)))
+                  function(X) {
+                    rho <- sqrt(statistic(X) / (2 * n))
+                    max(0, min(1, rho - 1 / (4 * n * rho)))
+                  })
     CINT.R <- quantile(CINT.R, c((1 - boot.CI) / 2, 1 - (1 - boot.CI) / 2))
   }
   else {
