@@ -24,12 +24,13 @@ moore.vector.test <- function(x, w, p.value = c("asymptotic", "simulated")) {
   statistic <- function(x, w) {
     ss <- sum(w * sin(x))
     cc <- sum(w * cos(x))
-    (sqrt(cc^2 + ss^2)) / n ^ (3/2)
+    (cc^2 + ss^2) / (n * (n + 1) * (2 * n + 1) / 12)
   }
   STATISTIC <- statistic(x = x, w = w)
   method.asymp <- function() {
     assign("METHOD", "Moore's test of circular uniformity for vector data", envir = parent.frame())
-    assign("PVAL", exp(-3 * STATISTIC ^ 2), envir = parent.frame())
+    assign("PVAL", 1 - pchisq(STATISTIC, 2), envir = parent.frame())
+    assign("PARAMETER", 2, envir = parent.frame())
   }
   method.sim <- function() {
     x.sim <- matrix(rcircularuniform(n * 9999), ncol = 9999)
@@ -37,6 +38,7 @@ moore.vector.test <- function(x, w, p.value = c("asymptotic", "simulated")) {
     sim.statistics <- sapply(seq_len(9999), function(i) statistic(x.sim[, i], w.sim[, i]))
     assign("METHOD", "Moore's test of circular uniformity for vector Data (simulated p-values)", envir = parent.frame())
     assign("PVAL", 1 / (length(sim.statistics) + 1) * (length(which(sim.statistics >= STATISTIC)) + 1), envir = parent.frame())
+    assign("PARAMETER", NA, envir = parent.frame())
   }
   if(p.value == "asymptotic") {
     method.asymp()
@@ -44,7 +46,9 @@ moore.vector.test <- function(x, w, p.value = c("asymptotic", "simulated")) {
   else {
     method.sim()
   }
-  names(STATISTIC) <- "R*"
+  names(STATISTIC) <- "X2"
+  names(PARAMETER) <- "df"
   structure(list(method = METHOD, data.name = INPUT,
-                 statistic = STATISTIC, p.value = PVAL), class = "htest")
+                 statistic = STATISTIC, parameter = PARAMETER,
+                 p.value = PVAL), class = "htest")
 }
