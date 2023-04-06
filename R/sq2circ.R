@@ -1,3 +1,11 @@
-sq2circ <- function(x, y) {
-  2 * pi * patan2bunif(atan2(y = y, x = x)) - pi
+sq2circ <- function(x, y = NULL) {
+  if(is.list(x) & length(x) == 2 & length(x[[1]]) == length(x[[2]])) {
+    rho <- pmax(abs(x[[1]]), abs(x[[2]]))
+    theta <- 2 * pi * patan2bunif(atan2(y = x[[2]], x = x[[1]])) - pi
+  }
+  else {
+    rho <- pmax(abs(x), abs(y))
+    theta <- 2 * pi * patan2bunif(atan2(y = y, x = x)) - pi
+  }
+  structure(list(rho = rho, theta = theta), class = "polar.coord")
 }
