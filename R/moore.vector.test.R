@@ -5,28 +5,35 @@
 # FOR VECTOR DATA OR WEIGHTED CIRCULAR OBSERVATIONS       #
 # Author: Igor Yegin                                      #
 #                                                         #
-# Last update: 16/03/2023                                 #
+# Last update: 06/04/2023                                 #
 #                                                         #
 ###########################################################
 
-moore.vector.test <- function(x, w, p.value = c("asymptotic", "simulated")) {
+moore.vector.test <- function(x, w = NULL, p.value = c("asymptotic", "simulated"), rho.test = NULL) {
   require(circular)
   if(inherits(x, "3x3"))
     stop("This function does not support 3x3 objects")
-  if(length(x) != length(w))
+  if(!is.null(w) & length(x) != length(w))
     stop("Vector of angles (x) and vector of weights/lengths (w) must have equal number of elements")
-  if(!is.numeric(x) | !is.numeric(w))
-    stop("Vector of angles (x) and/or vector of weights/lengths (w) are not numeric")
   INPUT <- deparse(substitute(x))
   p.value <- match.arg(p.value)
-  n <- length(x)
-  w <- rank(w)
+  if(inherits(x, "polar.coord")) {
+    x.t <- x$theta
+    n <- length(x$theta)
+    w <- x$rho
+    w.r <- rank(x$rho)
+  }
+  else {
+    x.t <- x
+    n <- length(x)
+    w.r <- rank(w)
+  }
   statistic <- function(x, w) {
     ss <- sum(w * sin(x))
     cc <- sum(w * cos(x))
     (cc^2 + ss^2) / (n * (n + 1) * (2 * n + 1) / 12)
   }
-  STATISTIC <- statistic(x = x, w = w)
+  STATISTIC <- statistic(x = x.t, w = w.r)
   method.asymp <- function() {
     assign("METHOD", "Moore's test of circular uniformity for vector data", envir = parent.frame())
     assign("PVAL", 1 - pchisq(STATISTIC, 2), envir = parent.frame())
@@ -48,7 +55,16 @@ moore.vector.test <- function(x, w, p.value = c("asymptotic", "simulated")) {
   }
   names(STATISTIC) <- "X2"
   names(PARAMETER) <- "df"
-  structure(list(method = METHOD, data.name = INPUT,
-                 statistic = STATISTIC, parameter = PARAMETER,
-                 p.value = PVAL), class = "htest")
+  rayleigh <- structure(list(method = METHOD, data.name = INPUT,
+                             statistic = STATISTIC, parameter = PARAMETER,
+                             p.value = PVAL), class = "htest")
+  if(!is.null(rho.test)) {
+    rho.success <- which(w < rho.test)
+    binom <- binom.test(length(rho.success), length(w), p = 0.5, alternative = "greater")
+    binom$data.name <- deparse(substitute(x))
+    return(list(rayleigh = rayleigh, binom = binom))
+  }
+  else {
+    return(rayleigh)
+  }
 }
