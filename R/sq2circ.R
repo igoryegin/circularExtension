@@ -7,5 +7,7 @@ sq2circ <- function(x, y = NULL) {
     rho <- pmax(abs(x), abs(y))
     theta <- 2 * pi * patan2bunif(atan2(y = y, x = x)) - pi
   }
-  structure(list(rho = rho, theta = theta), class = "polar.coord")
+  x <- rho * cos(theta)
+  y <- rho * sin(theta)
+  return(list(x = x, y = y))
 }
