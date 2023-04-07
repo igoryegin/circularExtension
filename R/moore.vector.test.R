@@ -5,7 +5,7 @@
 # FOR VECTOR DATA OR WEIGHTED CIRCULAR OBSERVATIONS       #
 # Author: Igor Yegin                                      #
 #                                                         #
-# Last update: 06/04/2023                                 #
+# Last update: 07/04/2023                                 #
 #                                                         #
 ###########################################################
 
@@ -59,7 +59,7 @@ moore.vector.test <- function(x, w = NULL, p.value = c("asymptotic", "simulated"
                              statistic = STATISTIC, parameter = PARAMETER,
                              p.value = PVAL), class = "htest")
   if(!is.null(rho.test)) {
-    rho.success <- which(w < rho.test)
+    rho.success <- which(w > rho.test)
     binom <- binom.test(length(rho.success), length(w), p = 0.5, alternative = "greater")
     binom$data.name <- deparse(substitute(x))
     return(list(rayleigh = rayleigh, binom = binom))
