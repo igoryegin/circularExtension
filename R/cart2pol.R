@@ -7,5 +7,5 @@ cart2pol <- function(x, y = NULL) {
     theta <- atan2(y = y, x = x)
     rho <- sqrt(x ^ 2 + y ^ 2)
   }
-  structure(list(rho = rho, theta = theta), class = "polar.coord")
+  data.frame(rho = rho, theta = theta)
 }
