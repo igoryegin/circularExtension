@@ -5,7 +5,7 @@
 # FOR VECTOR DATA OR WEIGHTED CIRCULAR OBSERVATIONS       #
 # Author: Igor Yegin                                      #
 #                                                         #
-# Last update: 07/04/2023                                 #
+# Last update: 08/04/2023                                 #
 #                                                         #
 ###########################################################
 
@@ -17,7 +17,7 @@ moore.vector.test <- function(x, w = NULL, p.value = c("asymptotic", "simulated"
     stop("Vector of angles (x) and vector of weights/lengths (w) must have equal number of elements")
   INPUT <- deparse(substitute(x))
   p.value <- match.arg(p.value)
-  if(inherits(x, "polar.coord")) {
+  if(is.list(x)) {
     x.t <- x$theta
     n <- length(x$theta)
     w <- x$rho
