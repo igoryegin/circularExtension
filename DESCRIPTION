@@ -1,7 +1,7 @@
 Package: circularExtension
 Type: Package
 Title: Extra functions for "circular" package
-Version: 0.2.2
+Version: 0.3.0
 Author: Igor Yegin
 Maintainer: Igor Yegin <miellago98@gmail.com>
 Imports: 
