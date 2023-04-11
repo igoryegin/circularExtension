@@ -11,6 +11,7 @@
 
 moore.vector.test <- function(x, w = NULL, p.value = c("asymptotic", "simulated"), rho.CI = NULL, rho.binom.test = NULL) {
   require(circular)
+  require(boot)
   if(inherits(x, "3x3"))
     stop("This function does not support 3x3 objects")
   if(!is.null(w) & length(x) != length(w))
