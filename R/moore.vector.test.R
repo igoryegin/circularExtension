@@ -9,7 +9,8 @@
 #                                                         #
 ###########################################################
 
-moore.vector.test <- function(x, w = NULL, p.value = c("asymptotic", "simulated"), rho.CI = NULL, rho.binom.test = NULL) {
+moore.vector.test <- function(x, w = NULL, p.value = c("asymptotic", "simulated"), 
+                              rho.CI = NULL, rho.minlength = NULL, rho.minlength.conf = 0.95) {
   require(circular)
   require(boot)
   if(inherits(x, "3x3"))
@@ -72,9 +73,9 @@ moore.vector.test <- function(x, w = NULL, p.value = c("asymptotic", "simulated"
   rayleigh <- structure(list(method = METHOD, data.name = INPUT,
                              statistic = STATISTIC, parameter = PARAMETER,
                              p.value = PVAL, conf.int = CINT), class = "htest")
-  if(!is.null(rho.binom.test)) {
-    success <- which(w > rho.binom.test)
-    binom <- binom.test(length(success), length(w), p = 0.5, alternative = "greater")
+  if(!is.null(rho.minlength)) {
+    success <- which(w > rho.minlength)
+    binom <- binom.test(length(success), length(w), p = 0.5, alternative = "greater", conf.level = rho.minlength.conf)
     binom$data.name <- deparse(substitute(x))
     return(list(rayleigh = rayleigh, binom = binom))
   }
