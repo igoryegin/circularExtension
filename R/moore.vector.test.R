@@ -36,8 +36,8 @@ moore.vector.test <- function(x, w = NULL, p.value = c("asymptotic", "simulated"
     (cc^2 + ss^2) / (n * (n + 1) * (2 * n + 1) / 12)
   }
   boot.fun <- function(data, ind) {
-    Rbar <- sqrt(weighted.mean(cos(as.numeric(data$X[ind])), as.numeric(data$W[ind])) ^ 2 +
-                   weighted.mean(sin(as.numeric(data$X[ind])), as.numeric(data$W[ind])) ^ 2)
+    Rbar <- sqrt(weighted.mean(cos(as.numeric(data$X[ind])), data$W[ind]) ^ 2 +
+                   weighted.mean(sin(as.numeric(data$X[ind])), data$W[ind]) ^ 2)
     Rbar
   }
   STATISTIC <- statistic(x = X, w = W)
