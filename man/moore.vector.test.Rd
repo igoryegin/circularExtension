@@ -7,7 +7,7 @@ Performs the Moore's test of circular uniformity for vector data or weighted ang
 \arguments{
   \item{x}{vector of angles}
   \item{w}{vector of lengths or weights}
-  \item{p.value}{method of calculating the p-value. \code{asymptotic} calculates the p-value using the formula in Moore (1980). With \code{asymptotic}, the p-value is simulated with 9,999 repetitions.}
+  \item{p.value}{method of calculating the p-value. \code{asymptotic} calculates the p-value using the formula in Moore (1980). With \code{simulated}, the p-value is simulated with 9,999 repetitions.}
   \item{rho.CI}{confidence level for mean resultant vector length. Confidence interval is computed using normal bootstrap with 10 thousand replications.}
   \item{rho.minlength}{mean resultant length threshold. Sign test (i.e., binomial test with \eqn{H_0:p=0.5}) is performed}
   \item{rho.minlength.conf}{confidence level for \code{rho.minlength}}
