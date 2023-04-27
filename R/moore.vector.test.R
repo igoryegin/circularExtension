@@ -5,7 +5,7 @@
 # FOR VECTOR DATA OR WEIGHTED CIRCULAR OBSERVATIONS       #
 # Author: Igor Yegin                                      #
 #                                                         #
-# Last update: 11/04/2023                                 #
+# Last update: 28/04/2023                                 #
 #                                                         #
 ###########################################################
 
@@ -62,7 +62,7 @@ moore.vector.test <- function(x, w = NULL, p.value = c("asymptotic", "simulated"
   }
   if(!is.null(rho.CI)) {
     CINT <- boot(data.frame(X = X, W = W), boot.fun, R = 10000)
-    CINT <- boot:::norm.ci(CINT, conf = rho.CI)[2:3]
+    CINT <- boot:::basic.ci(CINT$t0, CINT$t, conf = rho.CI)[4:5]
     attr(CINT, "conf.level") <- rho.CI
     }
   else {
