@@ -62,7 +62,7 @@ moore.vector.test <- function(x, w = NULL, p.value = c("asymptotic", "simulated"
   }
   if(!is.null(rho.CI)) {
     CINT <- boot(data.frame(X = X, W = W), boot.fun, R = 10000)
-    CINT <- pmax(0, boot:::basic.ci(CINT$t0, CINT$t, conf = rho.CI)[4:5])
+    CINT <- c(pmax(0, boot:::basic.ci(CINT$t0, CINT$t, conf = 2 * rho.CI - 1)[4]), 1)
     attr(CINT, "conf.level") <- rho.CI
     }
   else {
