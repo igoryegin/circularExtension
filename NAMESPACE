@@ -1,3 +1,16 @@
-exportPattern("^[[:alpha:]]+")
-import(mathjaxr)
-import(boot)
+# Imports
+import(circular)
+importFrom("boot", "boot", "boot.ci")
+
+# Exports
+export(
+  cart2pol,
+  cor.lincircular,
+  grouped.rayleigh.test,
+  grouped.watson.test,
+  median.circular.test,
+  moore.vector.test,
+  qcircularuniform,
+  rDCU,
+  sq2circ
+)
