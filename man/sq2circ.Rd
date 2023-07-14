@@ -4,7 +4,7 @@
 Mapping of square uniform distribution onto disc uniform distribution.
 }
 \description{
-The points on a square bounded by \eqn{x,y \in [-a, a]} are mapped onto a circle with zero centre and unit radius. Meanwhile, the uniformity is preserved, i.e if the points are uniformly distributed on a square, they will still have uniform distribution on a circle/disc.
+The points on a square bounded by \eqn{x,y \in [-1, 1]} are mapped onto a circle with zero centre and unit radius. Meanwhile, the uniformity is preserved, i.e if the points are uniformly distributed on a square, they will still have uniform distribution on a circle/disc.
 }
 \usage{
 sq2circ(x, y = NULL)

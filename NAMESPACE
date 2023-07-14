@@ -10,6 +10,7 @@ export(
   grouped.watson.test,
   median.circular.test,
   moore.vector.test,
+  qcardioid,
   qcircularuniform,
   rDCU,
   sq2circ
