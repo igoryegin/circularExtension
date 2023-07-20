@@ -5,13 +5,13 @@
 #                                                         #
 # Author: Igor Yegin                                      #
 #                                                         #
-# Last update: 14/07/2023                                 #
+# Last update: 21/07/2023                                 #
 #                                                         #
 ###########################################################
 
-pcircularuniform <- function(q) {
-  ifelse(q < 0, 0, 
-         ifelse(q > 2 * pi, 1,
-                q / (2 * pi))
+pcircularuniform <- function(theta) {
+  ifelse(theta < 0, 0, 
+         ifelse(theta > 2 * pi, 1,
+                theta / (2 * pi))
   )
 }
