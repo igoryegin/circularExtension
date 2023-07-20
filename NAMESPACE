@@ -13,6 +13,7 @@ export(
   pcircularuniform,
   qcardioid,
   qcircularuniform,
+  rcircularuniform,
   rDCU,
   sq2circ
 )
