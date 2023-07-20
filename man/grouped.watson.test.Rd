@@ -27,6 +27,10 @@ x <- table(findInterval(x, seq(0, 2*pi, pi/6)))
 grouped.rayleigh.test(x, p.value = "asymptotic")
 }
 \references{
-Moore, B. R. (1980). A Modification of the Rayleigh Test for Vector Data. Biometrika, 67(1), 175–180.
+Choulakian, V., Lockhart, R. A., & Stephens, M. A. (1994). Cramér-von Mises statistics for discrete distributions. Canadian Journal of Statistics, 22(1), 125–137.
+
 Pewsey, A., Neuhaeuser M., & Ruxton, G. D. (2013). Circular Statistics in R. Oxford: OUP Oxford.
+}
+\author{
+  Igor Yegin
 }
